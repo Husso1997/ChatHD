@@ -8,8 +8,6 @@ package chat.bll;
 import chat.be.Message;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -19,8 +17,9 @@ public class MCLogicFacade implements IMechaChatLogicFacade
 {
     static MCLogicFacade INSTANCE;
     
+    
     private int id = 1;
-    ObservableList<Message> msgs;
+    ArrayList<Message> msgs;
     
     private MCLogicFacade()
     {
@@ -39,22 +38,22 @@ public class MCLogicFacade implements IMechaChatLogicFacade
     @Override
     public Message logMessage(String msg) 
     {
-        if (msgs == null) 
+        if(msgs == null)
         {
-            msgs = FXCollections.observableArrayList();
-            
+          msgs = new ArrayList();
         }
         Message message = new Message();
         message.setId(id++);
         message.setMessage(msg);
-        msgs.add(message);
+        getAllMessages().add(message);
         return message;
     }
 
     @Override
-    public ObservableList<Message> getAllMessages() 
+    public List<Message> getAllMessages() 
     {
         return msgs;
     }
+
     
 }

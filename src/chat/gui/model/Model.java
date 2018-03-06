@@ -7,6 +7,7 @@ package chat.gui.model;
 
 import chat.be.Message;
 import chat.bll.IMechaChatLogicFacade;
+import chat.bll.MCLogicFacade;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,35 +20,20 @@ public class Model {
     private IMechaChatLogicFacade Facade;
     private ObservableList<Message> messages;
     
-    public Model(){
+    public Model()
+    {
         messages = FXCollections.observableArrayList();
-        
-        Facade = new IMechaChatLogicFacade() 
-        {
-            @Override
-            public Message logMessage(String msg) {
-                Message m = new Message();
-                m.setId(0);
-                m.setMessage(msg);
-                return m;
-            }
-
-            @Override
-            public List<Message> getAllMessages() 
-            {
-               return messages;
-            }
-        };
+        Facade = MCLogicFacade.getInstance();
     }
     
-    public List<Message> getMessages()
+    public ObservableList<Message> getMessages()
     {
-        return Facade.getAllMessages();
+        return messages;
     }
     
     public void logMessage(String msg)
     {
-        Message message = Facade.logMessage(msg);
-        messages.add(message);
+        Facade.logMessage(msg);
+        messages.addAll(Facade.getAllMessages());
     }
 }

@@ -9,6 +9,8 @@ import chat.be.Message;
 import chat.gui.model.Model;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,6 +56,7 @@ public class FXMLDocumentController implements Initializable {
                 return cell;
             }
         });
+        
         listView.setItems(model.getMessages());
     }    
 
