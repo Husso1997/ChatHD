@@ -5,21 +5,34 @@
  */
 package chat.gui.model;
 
+import chat.be.Message;
+
 /**
  *
  * @author Hussain
  */
 public class CreateMessageCommand implements ICommand
 {
-
+    private Model receiver;
+    private Message message;
+    private String text;
+    
+    public CreateMessageCommand(Model receiver, String text)
+    {
+        this.text = text;
+        this.receiver = receiver;
+    }
+    
     @Override
-    public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void execute() 
+    {
+        message = receiver.logMessage(text);
     }
 
     @Override
-    public void undo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void undo() 
+    {
+       
     }
     
 }

@@ -31,9 +31,10 @@ public class Model {
         return messages;
     }
     
-    public void logMessage(String msg)
+    public Message logMessage(String msg)
     {
-        Facade.logMessage(msg);
+        Message message = Facade.logMessage(msg);
         messages.addAll(Facade.getAllMessages());
+        return message;
     }
 }
