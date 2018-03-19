@@ -6,11 +6,12 @@
 package chat.gui.controller;
 
 import chat.be.Message;
+import chat.gui.model.CreateMessageCommand;
+import chat.gui.model.ICommand;
 import chat.gui.model.Model;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.Stack;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +19,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.util.Callback;
 
 /**
@@ -31,11 +35,26 @@ public class FXMLDocumentController implements Initializable {
     private ListView<Message> listView;
     @FXML
     private TextField textField;
+    
     Model model;
+    
+    private Stack<ICommand> undos;
+    private Stack<ICommand> redos;
+    
+    private KeyCombination keysUndo;
+    private KeyCombination keysRedo;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
         model = new Model();
+        
+        undos = new Stack<>();
+        redos = new Stack<>();
+        
+        keysUndo = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
+        keysRedo = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
+        
         listView.setCellFactory(new Callback<ListView<Message>, ListCell<Message>>() {
 
             @Override
@@ -64,8 +83,8 @@ public class FXMLDocumentController implements Initializable {
     private void sendMessage(ActionEvent event) 
     {
         String text = textField.getText();
-        model.logMessage(text);
-        
+        ICommand createCmd = new CreateMessageCommand(model, text);
     }
     
+
 }

@@ -14,8 +14,10 @@ import java.util.List;
  */
 public interface IMechaChatLogicFacade 
 {
-    public Message logMessage(String msg);
+    public Message logMessage(String msg)throws BllException;
             
-    public List<Message> getAllMessages();
+    public List<Message> getAllMessages() throws BllException; 
+    
+    public void deleteMessage(Message message) throws BllException;
 
 }

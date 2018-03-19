@@ -6,8 +6,12 @@
 package chat.bll;
 
 import chat.be.Message;
-import java.util.ArrayList;
+import chat.dal.DalException;
+import chat.dal.IMechaChatDalFacade;
+import chat.dal.MechaChatDalFacade;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,14 +20,14 @@ import java.util.List;
 public class MCLogicFacade implements IMechaChatLogicFacade 
 {
     static MCLogicFacade INSTANCE;
+    private IMechaChatDalFacade dalFacade;
     
     
     private int id = 1;
-    ArrayList<Message> msgs;
     
     private MCLogicFacade()
     {
-        
+        this.dalFacade = new MechaChatDalFacade();
     }
     
     public static MCLogicFacade getInstance()
@@ -36,24 +40,43 @@ public class MCLogicFacade implements IMechaChatLogicFacade
     }
 
     @Override
-    public Message logMessage(String msg) 
+    public Message logMessage(String msg) throws BllException 
     {
-        if(msgs == null)
+        try 
         {
-          msgs = new ArrayList();
+            return dalFacade.createMessage(msg);
+        } 
+        catch (DalException ex) 
+        {
+            throw new BllException(ex.getMessage(), ex);
         }
-        Message message = new Message();
-        message.setId(id++);
-        message.setMessage(msg);
-        getAllMessages().add(message);
-        return message;
     }
 
     @Override
-    public List<Message> getAllMessages() 
+    public List<Message> getAllMessages() throws BllException
     {
-        return msgs;
+        try 
+        {
+            return dalFacade.readAllMessages();
+        } 
+        catch (DalException ex) 
+        {
+            throw new BllException(ex.getMessage(), ex);
+        }
     }
+    
+    @Override
+    public void deleteMessage(Message message) throws BllException
+    {
+        try 
+        {
+            dalFacade.deleteMessage(message);
+        } catch (DalException ex) 
+        {
+            throw new BllException(ex.getMessage(), ex);
+        }
+    }
+    
 
     
 }

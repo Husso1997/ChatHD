@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chat.gui.model;
-
-import chat.bll.BllException;
+package chat.dal;
 
 /**
  *
- * @author B
+ * @author Hussain
  */
-public interface ICommand {
- 
-    public void execute() throws BllException;
-    
-    public void undo() throws BllException;
-    
+public class DalException extends Exception
+{
+       public DalException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
 }

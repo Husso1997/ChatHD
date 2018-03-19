@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chat.dal;
+package chat.bll;
 
 /**
  *
- * @author B
+ * @author Hussain
  */
-public class DALManager {
-    
+public class BllException extends Exception
+{
+        public BllException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
 }

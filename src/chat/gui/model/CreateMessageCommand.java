@@ -6,6 +6,9 @@
 package chat.gui.model;
 
 import chat.be.Message;
+import chat.bll.BllException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,13 +29,19 @@ public class CreateMessageCommand implements ICommand
     @Override
     public void execute() 
     {
-        message = receiver.logMessage(text);
+        try {
+            message = receiver.logMessage(text);
+        } 
+        catch (BllException ex) 
+        {
+            Logger.getLogger(CreateMessageCommand.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
-    public void undo() 
+    public void undo() throws BllException 
     {
-       
+       receiver.deleteMessage(message);
     }
     
 }

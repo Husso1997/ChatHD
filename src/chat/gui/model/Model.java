@@ -6,9 +6,9 @@
 package chat.gui.model;
 
 import chat.be.Message;
+import chat.bll.BllException;
 import chat.bll.IMechaChatLogicFacade;
 import chat.bll.MCLogicFacade;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -31,10 +31,15 @@ public class Model {
         return messages;
     }
     
-    public Message logMessage(String msg)
+    public Message logMessage(String msg) throws BllException 
     {
         Message message = Facade.logMessage(msg);
-        messages.addAll(Facade.getAllMessages());
+        messages.add(message);
         return message;
+    }
+    
+    public void deleteMessage(Message message) throws BllException
+    {
+        Facade.deleteMessage(message);
     }
 }
