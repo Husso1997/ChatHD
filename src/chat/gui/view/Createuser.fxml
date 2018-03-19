@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="335.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9" fx:controller="chat.gui.view.CreateuserController">
+   <children>
+      <TextField fx:id="txtFieldPasswordAgain" layoutX="94.0" layoutY="234.0" promptText="Password again" />
+      <TextField fx:id="txtFieldPassword" layoutX="94.0" layoutY="175.0" promptText="Password" />
+      <TextField fx:id="txtFieldUserName" layoutX="94.0" layoutY="61.0" promptText="Username " />
+      <TextField fx:id="txtFieldEmail" layoutX="94.0" layoutY="119.0" promptText="Email" />
+      <Button layoutX="94.0" layoutY="312.0" mnemonicParsing="false" onAction="#btnHandleCreateUser" text="Create" />
+      <Button layoutX="176.0" layoutY="312.0" mnemonicParsing="false" onAction="#btnHandleCancel" text="Cancel" />
+      <Label layoutX="94.0" layoutY="15.0" text="Create User">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
