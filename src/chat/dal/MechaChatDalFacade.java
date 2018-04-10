@@ -6,8 +6,11 @@
 package chat.dal;
 
 import chat.be.Message;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,27 +19,34 @@ import java.util.List;
 public class MechaChatDalFacade implements IMechaChatDalFacade
 {
     List<Message> msgs;
+    MessageDAO mDAO;
+
+    public MechaChatDalFacade() {
+        mDAO = new MessageDAO();
+    }
+    
 
     @Override
     public Message createMessage(String msg) throws DalException 
     {
-       Message message = new Message();
-       message.setMessage(msg);
-       message.setId(1);
-       readAllMessages().add(message);
+       Message message;
+        try {
+            message = mDAO.createMessage(msg);
+        } catch (SQLException ex) {
+            throw new DalException(ex.getMessage(), ex);
+        }
        return message;
     }
 
     @Override
     public void deleteMessage(Message message) throws DalException 
     {
-        for(Message msg : readAllMessages())
-        {
-            if(msg.equals(message))
-            {
-                readAllMessages().remove(msg);
-            }
+        try {
+            mDAO.deleteMessage(message.getId());
+        } catch (SQLException ex) {
+            throw new DalException(ex.getMessage(), ex);
         }
+  
     }
 
     @Override
