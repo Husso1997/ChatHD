@@ -5,6 +5,9 @@
  */
 package chat;
 
+import chat.be.Message;
+import chat.bll.ListGrabber;
+import chat.bll.ListObserver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +33,15 @@ public class Chat extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {        ListGrabber lg = new ListGrabber();
+        ListObserver lo = new ListObserver(lg);
+        Message m = new Message();
+        m.setMessage("pft");
+        lg.addMessage(m);
+        lg.addMessage(m);
+        lg.addMessage(m);
+        lg.addMessage(m);
         launch(args);
     }
     
